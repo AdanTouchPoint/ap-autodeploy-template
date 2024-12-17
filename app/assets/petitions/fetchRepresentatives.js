@@ -1,20 +1,20 @@
-import { fetchData } from "./fetchData";
-
-const fetchRepresentatives = async (petitionMethod, backendURLBase, endpoint, clientId, params = '', setMp, setEmails) => {
-    const datos = await fetchData(petitionMethod, backendURLBase, endpoint, clientId, params)
-    console.log(datos.data)
-    setEmails(datos.data)
-    //let query = datos.mps;
-    // console.log(sendMany, 'sen many')
-   /*  let fill = await query.filter((el) => el.govt_type == 'Federal MPs');
+const fetchRepresentatives = async (backendURLBaseServices,endpoints,clientId, postcode, setMp, setSenator, setShowLoadSpin) => {
+    //const datos = await fetchData(petitionMethod, backendURLBase, endpoint, clientId, params)
+    console.log('fetchReps')
+    const requestOptions = {
+        method: "GET",
+        redirect: 'follow',
+    }
+    const datos = await fetch( `${backendURLBaseServices}${endpoints.toGetAllRepresentatives}?clientId=${clientId}&postcode=${postcode}`,requestOptions)
+    const response =  await datos.json() 
+    let query = response.mps;  
+    let fill = await query.filter((el) => el.govt_type == 'Federal MPs');
     setMp(fill);
-    setSenator(datos.data)
+    setSenator(response.data)
     setShowLoadSpin(false)
-    setShowFindForm(true)
-    setShowList(false)
-    setShowListSelect(true) */
-
+    return true
 }
+
 
 export{
     fetchRepresentatives

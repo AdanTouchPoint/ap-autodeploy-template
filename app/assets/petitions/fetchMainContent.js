@@ -1,16 +1,16 @@
-import { fetchData } from "./fetchData";
-import { formater } from "../helpers/formater";
-const fetchMainContent = async (petitionMethod, backendURLBase, endpoint, clientId, params = '', setMainData, setFormFields) => {
-    const datos = await fetchData(petitionMethod,backendURLBase,endpoint, clientId, params)
-    const data = await formater(datos)
-    if (datos.data && (Array.isArray(datos.data) ? datos.data.length > 0 : Object.keys(datos.data).length > 0)) {
-        setMainData(data);
-        const fields = await data.formFields.reverse()
-        setFormFields(fields)
-      }
-
+const fetchMainContent = async (backendURLBase,id,clientId, campaignType) => {
+    const requestOptions = {
+        method: "GET",
+        redirect: 'follow',
+    }
+    const pageData = await fetch(`${backendURLBase}/campaignContentId?clientId=${clientId}&id=${id}&type=${campaignType}`)
+    if (pageData.ok === false) {
+        return false
+    }
+    const data = await pageData.json()
+    return data 
 }
 
-export{
+export {
     fetchMainContent
 }
