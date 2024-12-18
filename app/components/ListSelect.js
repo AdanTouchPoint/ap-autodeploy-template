@@ -60,16 +60,13 @@ const ListSelect = ({
     );
     if (checklistStates.every((state) => !state)) {
       handleShow();
-      setShowManualEmailForm(true);
-      setShowFindForm(true);
+
     } else {
       setAllDataIn(selectedEmails);
       setEmailData({
         ...dataUser,
       });
-      setShowManualEmailForm(false);
-      setShowFindForm(true);
-      setShowMainContainer(true);
+
       fetchLeads(
         true,
         backendURLBase,

@@ -7,13 +7,6 @@ import { fetchMainContent } from "./assets/petitions/fetchMainContent";
 import { fetchRepresentatives } from "./assets/petitions/fetchRepresentatives";
 
 function Home() {
-  const [configurations, setConfigurations] = useState({
-    lenguage: "es",
-    SearchBy: "state",
-    sendMany: false,
-    hasQuestions: false,
-    region: "mx",
-  });
   const [emailData, setEmailData] = useState({
     userName: "",
   });
@@ -36,7 +29,14 @@ function Home() {
     toGetMainData: "/main/",
   });
   const [err,setErr]=useState(false)
-  const [emails, setEmails] = useState(["TEST1", "TEST2"]);
+  const [emails, setEmails] = useState([
+    {
+      name:'test',
+      contact:'adan.mijangos@touchpointmarketing.mx'}, 
+    {
+      name:'tests',
+      contact:'adan.mijangos@touchpointmarketing.mx'
+    }]);
   const [mp, setMp] = useState([]);
   const [senator, setSenator] = useState([]);
   const [states, setStates] = useState([]);
@@ -55,8 +55,8 @@ function Home() {
   const [colors, setColors] = useState({});
   const getInitialState = async (backendURLBase,id,clientId, campaignType) => { 
     const initialState = await fetchMainContent(backendURLBase,id,clientId, campaignType)
-    const getRepresentatives = await fetchRepresentatives(backendURLBaseServices,endpoints,clientId, postcode, setMp, setSenator, setShowLoadSpin)
-    if (initialState === false || getRepresentatives !== true ) {
+   // const getRepresentatives = await fetchRepresentatives(backendURLBaseServices,endpoints,clientId, setMp, setSenator)
+    if (initialState === false  ) {
       return setErr(true)
     }
     const pageData = initialState?.data[0]
@@ -121,9 +121,6 @@ function Home() {
         <MainForm
           emails={emails}
           setEmails={setEmails}
-          configurations={configurations}
-          setLeads={setLeads}
-          leads={leads}
           setEmailData={setEmailData}
           emailData={emailData}
           dataUser={dataUser}
@@ -135,10 +132,8 @@ function Home() {
           clientId={clientId}
           states={states}
           endpoints={endpoints}
-          tweet={tweet}
           typData={typData}
           mainData={mainData}
-          formFields={formFields}
           backendURLBase={backendURLBase}
           backendURLBaseServices={backendURLBaseServices}
           dataQuestions={dataQuestions}

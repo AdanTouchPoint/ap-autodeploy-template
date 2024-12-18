@@ -21,7 +21,6 @@ const MainForm = ({
   backendURLBase,
   endpoints,
   backendURLBaseServices,
-  configurations,
   allDataIn,
   setAllDataIn,
   colors,
@@ -34,6 +33,8 @@ const MainForm = ({
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState(false);
   const [tac, setTac] = useState(false);
+  const title = mainData.mainform?.title?.text;
+  const instructions = mainData.mainform?.instructions?.text;
   const loading = (cl) => {
     scroll.scrollTo(1000);
     return <LoadingMainForm cl={cl} />;
@@ -44,19 +45,15 @@ const MainForm = ({
       <div className="representatives-container">
         {
           <ListSelect
-            setShowManualEmailForm={setShowManualEmailForm}
             setError={setError}
             setValidated={setValidated}
             emails={emails}
             tac={tac}
-            setShowFindForm={setShowFindForm}
             emailData={emailData}
             setEmailData={setEmailData}
             dataUser={dataUser}
             clientId={clientId}
             setAllDataIn={setAllDataIn}
-            showMainContainer={showMainContainer}
-            setShowMainContainer={setShowMainContainer}
             backendURLBase={backendURLBase}
             endpoints={endpoints}
           />
@@ -136,20 +133,33 @@ const MainForm = ({
           </p>
         </div>
         <div className="fields-form">
-          {formFields.map((field, key) => {
+          {mainData.mainform?.mainFormInputs?.map((field, key) => {
+            const fieldText = field.text
             return field.type !== "state" ? (
               <Form.Group className="field" key={key}>
                 <Form.Label
                   className="select-label main-texts-color labels-text-format"
                   htmlFor={`emailInput-mainForm${key}`}
                 >
-                  {field.label}*
+                  {field.text}*
                 </Form.Label>
                 <Form.Control
                   id={`emailInput-mainForm${key}`}
-                  type={field.type === "emailUser" ? "email" : field.type}
+                  type={"text"}
                   placeholder={field.placeholder}
-                  name={field.type === "name" ? "userName" : field.type}
+                  name={
+                    field.text === "name"
+                      ? "userName"
+                      : field.text === "email"
+                      ? "emailUser"
+                      : field.text
+                  }
+                  defaultValue={ 
+                    field.text === 'name' 
+                    ? dataUser.userName
+                    : field.text === "email"
+                    ? dataUser.emailUser 
+                    : dataUser[fieldText] }
                   onChange={handleChange}
                   className="input-color main-form-inputs"
                   required
