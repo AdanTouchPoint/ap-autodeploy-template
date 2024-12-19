@@ -2,21 +2,16 @@ import React, { useState, useEffect } from "react";
 import Share from "./Share";
 
 const ThankYou = ({
-  showThankYou,
-  setShowFindForm,
-  setShowThankYou,
   typData,
-  setShowMainContainer,
+  setActiveSection,
   colors
 }) => {
   const click = (e) => {
     e.preventDefault();
-    setShowThankYou(true);
-    setShowFindForm(false);
-    setShowMainContainer(false);
+    setActiveSection("main-form")
   };
   return (
-    <div hidden={showThankYou} className={"container typ-container"}>      
+    <div className={"container typ-container"}>      
         <div className="typ-content">
           <h3 className="typ-message">
             {typData.data?.docs[0]

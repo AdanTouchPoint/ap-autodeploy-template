@@ -4,7 +4,6 @@ import Modal from "react-bootstrap/Modal";
 import { fetchLeads } from "../assets/petitions/fetchLeads";
 
 const ListSelect = ({
-  setShowManualEmailForm,
   setValidated,
   setError,
   emails,
@@ -12,10 +11,8 @@ const ListSelect = ({
   setAllDataIn,
   dataUser,
   setEmailData,
-  setShowFindForm,
-  setShowMainContainer,
   showMainContainer,
-  emailData,
+  setActiveSection,
   backendURLBase,
   endpoints,
   clientId,
@@ -60,14 +57,14 @@ const ListSelect = ({
     );
     if (checklistStates.every((state) => !state)) {
       handleShow();
-
     } else {
       setAllDataIn(selectedEmails);
       setEmailData({
         ...dataUser,
       });
+      setActiveSection("emailform");
 
-      fetchLeads(
+/*       fetchLeads(
         true,
         backendURLBase,
         endpoints,
@@ -76,13 +73,12 @@ const ListSelect = ({
         emailData,
         "NA",
         "Multiples-representatives-selected-lead"
-      );
+      ); */
     }
   };
   return (
     <>
       <div
-        hidden={showMainContainer}
         className={"buttons-list-container list-container"}
       >
         {emails?.map((email, index) => (

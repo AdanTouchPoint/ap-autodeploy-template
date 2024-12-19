@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/cjs/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/cjs/Col";
-import Alert from "react-bootstrap/Alert";
+import { animateScroll as scroll } from "react-scroll";
 import { fetchData } from "../assets/petitions/fetchData";
 import { fetchLeads } from "../assets/petitions/fetchLeads";
+import Alert from "react-bootstrap/Alert";
 
 const ManualEmailForm = ({
-  setShowThankYou,
-  setShowFindForm,
+  setActiveSection,
   dataUser,
   setDataUser,
   emailData,
@@ -19,12 +19,17 @@ const ManualEmailForm = ({
   backendURLBaseServices,
   mainData,
   allDataIn,
-  setShowMainContainer,
-  showManualEmailForm,
-  setShowManualEmailForm,
+
 }) => {
   const [valid, setValid] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
+  const errorHandler = (message) => {
+    return (
+      <Alert variant="danger">
+        {message}
+      </Alert>
+    );
+  };
   const handleMessageChange = (e) => {
     e.preventDefault();
     setDataUser({
@@ -33,22 +38,46 @@ const ManualEmailForm = ({
       message: e.target.name === "message" ? e.target.value : dataUser.message,
     });
   };
+  const verifyData = async (dataUser) =>{
+    const { subject, message } = await dataUser;
+    if (
+      subject === undefined ||
+      message === undefined ||
+      subject === "" ||
+      message === ""
+    ) {
+      setValid(false)
+      setError("form");
+      const options = {
+        duration: 100,
+        smooth: true,
+      };
+      scroll.scrollToTop(options)
+      return false
+    }
+    return true
+  }
   const handleSend = async (e) => {
     e.preventDefault();
+    const { subject, message, emailUser, userName } = await dataUser;
+    setError("")
+    const validData = await verifyData(dataUser)
+    if (validData === false ) {
+      setError("form")
+      return
+    }
     let currentSubject = dataUser.subject;
+    const messageEmail = dataUser.message.replace(/\n\r?/g, "<br/>");
     const payload = await fetchData(
       "GET",
       backendURLBaseServices,
       endpoints.toSendBatchEmails,
       clientId,
-      `to=${allDataIn.length > 0 ? allDataIn : emailData.email}&subject=${currentSubject}&firstName=${
-        dataUser.userName
-      }&emailData=${dataUser.emailUser}&text=${dataUser.message.replace(
-        /\n\r?/g,
-        "<br/>"
-      )}`
+      `to=${
+        allDataIn.length > 0 ? allDataIn : emailData.email
+      }&subject=${currentSubject}&firstName=${userName}&emailData=${emailUser}&text=${encodeURIComponent(messageEmail)}`
     );
-    const messageEmail = dataUser.message.replace(/\n\r?/g, "<br/>");
+ 
     if (payload.success === true) {
       fetchLeads(
         true,
@@ -60,9 +89,7 @@ const ManualEmailForm = ({
         messageEmail,
         "message-multiple-representatives-lead"
       );
-      setShowManualEmailForm(true);
-      setShowFindForm(true);
-      setShowThankYou(false);
+      setActiveSection("typ");
     }
     if (payload.success !== true) {
       fetchLeads(
@@ -75,37 +102,25 @@ const ManualEmailForm = ({
         messageEmail,
         "message-multiple-representatives-not-sended-lead"
       );
-      return (
-        <Alert>
-          The mail has not been sended succesfully, please try again later.
-          <Button
-            className={"button-email-form"}
-            variant={"dark"}
-            onClick={back}
-          >
-            Back
-          </Button>
-        </Alert>
-      );
+      setError("email");
+
     }
     return;
   };
   const back = (e) => {
     e.preventDefault();
-    setShowManualEmailForm(true);
-    setShowFindForm(false);
-    setShowMainContainer(false);
+    setActiveSection("mainform");
     console.log(dataUser, "dataUser");
   };
   return (
     <>
       {
-        <div className={"emailContainer"} hidden={showManualEmailForm}>
-          {error ? (
-            <Alert variant={"danger"}>
-              All fields are required, please fill in the missing ones.
-            </Alert>
-          ) : null}
+        <div className={"emailContainer"}>
+          {error === "form"
+            ? errorHandler("llena todos los campos")
+            : error === "email"
+            ? errorHandler("nose envio el email ")
+            : null}
           <Form
             name="fm-email"
             onSubmit={handleSend}
@@ -167,7 +182,7 @@ const ManualEmailForm = ({
                   </Button>
                   <Button
                     onClick={handleSend}
-                    className={"button-email-form secundary-btn"}
+                    className={"continue-button btn btn-primary btn-lg"}
                   >
                     Send!
                   </Button>

@@ -11,7 +11,6 @@ import ManualEmailForm from "./ManualEmailForm";
 const MainForm = ({
   dataUser,
   setDataUser,
-  mp,
   setEmailData,
   emailData,
   clientId,
@@ -24,9 +23,7 @@ const MainForm = ({
   allDataIn,
   setAllDataIn,
   colors,
-  formFields,
   emails,
-
 }) => {
   const [activeSection, setActiveSection] = useState('');
   const [showLoadSpin, setShowLoadSpin] = useState(false);
@@ -45,6 +42,7 @@ const MainForm = ({
       <div className="representatives-container">
         {
           <ListSelect
+            setActiveSection={setActiveSection}
             setError={setError}
             setValidated={setValidated}
             emails={emails}
@@ -96,10 +94,11 @@ const MainForm = ({
         setError(true);
         return;
       }
+      setActiveSection('emailform')
       setValidated(true);
-      setShowLoadSpin(true);
+     // setShowLoadSpin(true);
       setError(false);
-      fetchLeads(
+/*       fetchLeads(
         "NA",
         backendURLBase,
         endpoints,
@@ -108,7 +107,7 @@ const MainForm = ({
         emailData,
         "NA",
         "basic-data-user"
-      );
+      ); */
     };
     return(
       <div className={"container container-content"}>
@@ -239,7 +238,6 @@ const MainForm = ({
         return renderMainFormSection(title,instructions,mainData,error)
       case 'emailform':
         return <ManualEmailForm
-        many={many}
         dataUser={dataUser}
         emailData={emailData}
         setEmailData={setEmailData}
