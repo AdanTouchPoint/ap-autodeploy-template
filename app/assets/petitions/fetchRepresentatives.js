@@ -1,17 +1,21 @@
-const fetchRepresentatives = async (backendURLBaseServices,endpoints,clientId, postcode, setMp, setSenator) => {
-    //const datos = await fetchData(petitionMethod, backendURLBase, endpoint, clientId, params)
-    console.log('fetchReps')
-    const requestOptions = {
-        method: "GET",
-        redirect: 'follow',
-    }
-    const datos = await fetch( `${backendURLBaseServices}${endpoints.toGetAllRepresentatives}?clientId=${clientId}`,requestOptions)
-    const response =  await datos.json() 
+const fetchRepresentatives = async (
+  backendURLBase,
+  endpoints,
+  clientId,
+  setEmails
+) => {
+  console.log("fetchReps");
+  const requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+  const datos = await fetch(
+    `${backendURLBase}${endpoints.toGetAllRepresentatives}?clientId=${clientId}`,
+    requestOptions
+  );
+  const response = await datos.json();
+  setEmails(response.data);
+  return true;
+};
 
-    return true
-}
-
-
-export{
-    fetchRepresentatives
-}
+export { fetchRepresentatives };

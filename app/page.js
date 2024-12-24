@@ -24,7 +24,7 @@ function Home() {
     toSendBatchEmails: "/email-batch/",
     toGetRepresentativesPerStates: "/representatives-state/",
     toGetRepresentativesPerParty: "/representatives-party/",
-    toGetAllRepresentatives: "/all-reps/",
+    toGetAllRepresentatives: "/all-representatives/",
     toGetRepresentativesByCp: "/find-mp-demo/",
     toGetMainData: "/main/",
   });
@@ -55,8 +55,8 @@ function Home() {
   const [colors, setColors] = useState({});
   const getInitialState = async (backendURLBase,id,clientId, campaignType) => { 
     const initialState = await fetchMainContent(backendURLBase,id,clientId, campaignType)
-   // const getRepresentatives = await fetchRepresentatives(backendURLBaseServices,endpoints,clientId, setMp, setSenator)
-    if (initialState === false  ) {
+    const getRepresentatives = await fetchRepresentatives(backendURLBase,endpoints,clientId, setEmails)
+    if (initialState === false || getRepresentatives === false) {
       return setErr(true)
     }
     const pageData = initialState?.data[0]
