@@ -8,6 +8,7 @@ import {  animateScroll as scroll } from "react-scroll";
 import { fetchLeads } from "../assets/petitions/fetchLeads";
 import LoadingMainForm from "./LoadingMainForm";
 import ManualEmailForm from "./ManualEmailForm";
+import EmailPreview from "./EmailPreview";
 const MainForm = ({
   dataUser,
   setDataUser,
@@ -236,8 +237,22 @@ const MainForm = ({
     switch (activeSection) {
       case 'mainForm':
         return renderMainFormSection(title,instructions,mainData,error)
-      case 'emailform':
+      case 'emailForm':
         return <ManualEmailForm
+        dataUser={dataUser}
+        emailData={emailData}
+        setEmailData={setEmailData}
+        setDataUser={setDataUser}
+        clientId={clientId}
+        endpoints={endpoints}
+        backendURLBase={backendURLBase}
+        backendURLBaseServices={backendURLBaseServices}
+        mainData={mainData}
+        allDataIn={allDataIn}
+        setActiveSection={setActiveSection}
+      />;
+      case 'emailPreview':
+        return <EmailPreview
         dataUser={dataUser}
         emailData={emailData}
         setEmailData={setEmailData}
