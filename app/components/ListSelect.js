@@ -62,9 +62,9 @@ const ListSelect = ({
       setEmailData({
         ...dataUser,
       });
-      setActiveSection("emailform");
+      setActiveSection("emailForm");
 
-/*       fetchLeads(
+/*      fetchLeads(
         true,
         backendURLBase,
         endpoints,

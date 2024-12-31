@@ -10,28 +10,29 @@ const ThankYou = ({
     e.preventDefault();
     setActiveSection("main-form")
   };
+  console.log(typData)
   return (
     <div className={"container typ-container"}>      
         <div className="typ-content">
           <h3 className="typ-message">
-            {typData.data?.docs[0]
-              ? typData.data?.docs[0].thankYouMessage
-              : typData.thankYouMessage}
+            {typData.tymessage?.text
+              ? typData.tymessage.text
+              : "Please Insert Thank you Message"}
           </h3>
           <h5 className="second-typ-message">
-            {typData.data?.docs[0]
-              ? typData.data?.docs[0].secondThankYouMessage
-              : typData.secondThankYouMessage}
+            {typData.tymessage2?.text
+              ? typData.tymessage2.text
+              : "Please Insert Thank you Message 2"}
           </h5>
           
           <h5 className="share-text">
-            {typData.data?.docs[0]
-              ? typData.data?.docs[0].shareLabel
-              : typData.shareLabel}
+            {typData.shareText?.text
+              ? typData.shareText?.text
+              : "Please Insert share label"}
           </h5>
           <Share
-            shareUrl={typData.data?.docs[0].shareUrl}
-            shareMessage={typData.data?.docs[0].shareMessage}
+            shareUrl={typData.shareUrl?.text}
+            shareMessage={typData.shareMessage?.text}
             colors={colors}
           />
 

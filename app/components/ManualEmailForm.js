@@ -4,22 +4,13 @@ import Button from "react-bootstrap/cjs/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/cjs/Col";
 import { animateScroll as scroll } from "react-scroll";
-import { fetchData } from "../assets/petitions/fetchData";
-import { fetchLeads } from "../assets/petitions/fetchLeads";
 import Alert from "react-bootstrap/Alert";
 
 const ManualEmailForm = ({
   setActiveSection,
   dataUser,
   setDataUser,
-  emailData,
-  clientId,
-  backendURLBase,
-  endpoints,
-  backendURLBaseServices,
   mainData,
-  allDataIn,
-
 }) => {
   const [valid, setValid] = useState(false);
   const [error, setError] = useState("");
@@ -57,55 +48,15 @@ const ManualEmailForm = ({
     }
     return true
   }
-  const handleSend = async (e) => {
+  const click = async (e) => {
     e.preventDefault();
-    const { subject, message, emailUser, userName } = await dataUser;
     setError("")
     const validData = await verifyData(dataUser)
     if (validData === false ) {
       setError("form")
       return
     }
-    let currentSubject = dataUser.subject;
-    const messageEmail = dataUser.message.replace(/\n\r?/g, "<br/>");
-    const payload = await fetchData(
-      "GET",
-      backendURLBaseServices,
-      endpoints.toSendBatchEmails,
-      clientId,
-      `to=${
-        allDataIn.length > 0 ? allDataIn : emailData.email
-      }&subject=${currentSubject}&firstName=${userName}&emailData=${emailUser}&text=${encodeURIComponent(messageEmail)}`
-    );
- 
-    if (payload.success === true) {
-      fetchLeads(
-        true,
-        backendURLBase,
-        endpoints,
-        clientId,
-        dataUser,
-        emailData,
-        messageEmail,
-        "message-multiple-representatives-lead"
-      );
-      setActiveSection("typ");
-    }
-    if (payload.success !== true) {
-      fetchLeads(
-        false,
-        backendURLBase,
-        endpoints,
-        clientId,
-        dataUser,
-        emailData,
-        messageEmail,
-        "message-multiple-representatives-not-sended-lead"
-      );
-      setError("email");
-
-    }
-    return;
+    setActiveSection("emailPreview")
   };
   const back = (e) => {
     e.preventDefault();
@@ -123,7 +74,7 @@ const ManualEmailForm = ({
             : null}
           <Form
             name="fm-email"
-            onSubmit={handleSend}
+            onSubmit={click}
             noValidate
             validated={valid}
           >
@@ -181,7 +132,7 @@ const ManualEmailForm = ({
                     Back
                   </Button>
                   <Button
-                    onClick={handleSend}
+                    onClick={click}
                     className={"continue-button btn btn-primary btn-lg"}
                   >
                     Send!

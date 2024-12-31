@@ -83,33 +83,6 @@ const MainForm = ({
       const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
       return emailRegex.test(email.trim());
     };
-    const click = async (e) => {
-      e.preventDefault();
-      if (
-        !isValidEmail(dataUser?.emailUser) ||
-        tac === false ||
-        Object.getOwnPropertyNames(dataUser).length === 0 ||
-        dataUser?.userName === undefined ||
-        dataUser?.emailUser === undefined
-      ) {
-        setError(true);
-        return;
-      }
-      setActiveSection('emailform')
-      setValidated(true);
-     // setShowLoadSpin(true);
-      setError(false);
-/*       fetchLeads(
-        "NA",
-        backendURLBase,
-        endpoints,
-        clientId,
-        dataUser,
-        emailData,
-        "NA",
-        "basic-data-user"
-      ); */
-    };
     return(
       <div className={"container container-content"}>
       {error ? (
@@ -120,7 +93,6 @@ const MainForm = ({
       ) : null}
       <Form
         name="fm-find"
-        onSubmit={click}
         noValidate
         validated={validated}
       >
@@ -240,16 +212,9 @@ const MainForm = ({
       case 'emailForm':
         return <ManualEmailForm
         dataUser={dataUser}
-        emailData={emailData}
-        setEmailData={setEmailData}
-        setDataUser={setDataUser}
-        clientId={clientId}
-        endpoints={endpoints}
-        backendURLBase={backendURLBase}
-        backendURLBaseServices={backendURLBaseServices}
         mainData={mainData}
-        allDataIn={allDataIn}
         setActiveSection={setActiveSection}
+        setDataUser={setDataUser}
       />;
       case 'emailPreview':
         return <EmailPreview
