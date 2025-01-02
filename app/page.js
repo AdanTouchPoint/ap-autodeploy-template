@@ -37,13 +37,7 @@ function Home() {
       name:'tests',
       contact:'adan.mijangos@touchpointmarketing.mx'
     }]);
-  const [mp, setMp] = useState([]);
-  const [senator, setSenator] = useState([]);
   const [states, setStates] = useState([]);
-  const [dataQuestions, setDataQuestions] = useState();
-  const [questions, setQuestions] = useState({
-    question1: "",
-  });
   const [mainData, setMainData] = useState({});
   const [typData, setTypData] = useState({
     thankYouMessage: "Please enter a thank you message on the dashboard",
@@ -69,7 +63,6 @@ function Home() {
     }
    }
   useEffect(() => {
-
     getInitialState(backendURLBase,id,clientId, campaignType)
    }, []);
    useEffect(() => {
@@ -120,15 +113,10 @@ function Home() {
       {!loading && (
         <MainForm
           emails={emails}
-          setEmails={setEmails}
           setEmailData={setEmailData}
           emailData={emailData}
           dataUser={dataUser}
           setDataUser={setDataUser}
-          mp={mp}
-          setMp={setMp}
-          senator={senator}
-          setSenator={setSenator}
           clientId={clientId}
           states={states}
           endpoints={endpoints}
@@ -136,10 +124,6 @@ function Home() {
           mainData={mainData}
           backendURLBase={backendURLBase}
           backendURLBaseServices={backendURLBaseServices}
-          dataQuestions={dataQuestions}
-          setDataQuestions={setDataQuestions}
-          questions={questions}
-          setQuestions={setQuestions}
           allDataIn={allDataIn}
           setAllDataIn={setAllDataIn}
           colors={colors}

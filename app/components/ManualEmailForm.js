@@ -61,7 +61,6 @@ const ManualEmailForm = ({
   const back = (e) => {
     e.preventDefault();
     setActiveSection("mainform");
-    console.log(dataUser, "dataUser");
   };
   return (
     <>

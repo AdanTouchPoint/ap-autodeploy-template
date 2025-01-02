@@ -6,7 +6,6 @@ import TwitterIcon from "./icons/TwitterIcon";
 import LinkedinIcon from "./icons/LinkedinIcon";
 import "./share.css";
 const Share = ({shareMessage,shareUrl, colors }) => {  
-  console.log(colors)
   return (
     <div className="share-buttoner">
       <FacebookShareButton url={shareUrl? shareUrl: 'Fill this in your dashboard'} quote={shareMessage? shareMessage.replace(/"/g, '&quot;') :  'Fill this in your dashboard'} hashtag="#pleasefill" className="share-buttons">

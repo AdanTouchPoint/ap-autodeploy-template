@@ -10,7 +10,6 @@ const ThankYou = ({
     e.preventDefault();
     setActiveSection("main-form")
   };
-  console.log(typData)
   return (
     <div className={"container typ-container"}>      
         <div className="typ-content">

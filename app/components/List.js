@@ -45,7 +45,7 @@ const List = ({
         window.open(`https://twitter.com/intent/tweet?text=${tweetText}`)
         return
     }
-  return console.log("vacio")
+  return
   }
   const {
     complete,

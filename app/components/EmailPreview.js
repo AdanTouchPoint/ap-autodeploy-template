@@ -94,7 +94,6 @@ const EmailPreview = ({
   const back = (e) => {
     e.preventDefault();
     setActiveSection("emailForm");
-    console.log(dataUser, "dataUser");
   };
   return (
     <>
@@ -104,7 +103,6 @@ const EmailPreview = ({
           : error === "email"
           ? errorHandler("nose envio el email ")
           : null}
-        {console.log(allDataIn)}
         <p>Instructions</p>
         <div className="email-sheet">
           <h3>{dataUser?.subject}</h3>
