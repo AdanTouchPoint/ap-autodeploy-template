@@ -5,7 +5,6 @@ import Alert from "react-bootstrap/Alert";
 import ListSelect from "./ListSelect";
 import ThankYou from "./ThankYou";
 import {  animateScroll as scroll } from "react-scroll";
-import { fetchLeads } from "../assets/petitions/fetchLeads";
 import LoadingMainForm from "./LoadingMainForm";
 import ManualEmailForm from "./ManualEmailForm";
 import EmailPreview from "./EmailPreview";
@@ -215,7 +214,12 @@ const MainForm = ({
         mainData={mainData}
         setActiveSection={setActiveSection}
         setDataUser={setDataUser}
+        backendURLBase={backendURLBase}
+        endpoints={endpoints}
+        clientId={clientId}
+        setEmailData={setEmailData}
       />;
+
       case 'emailPreview':
         return <EmailPreview
         dataUser={dataUser}

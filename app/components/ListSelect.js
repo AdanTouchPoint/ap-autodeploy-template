@@ -11,7 +11,7 @@ const ListSelect = ({
   setAllDataIn,
   dataUser,
   setEmailData,
-  showMainContainer,
+  emailData,
   setActiveSection,
   backendURLBase,
   endpoints,
@@ -63,8 +63,7 @@ const ListSelect = ({
         ...dataUser,
       });
       setActiveSection("emailForm");
-
-/*      fetchLeads(
+     fetchLeads(
         true,
         backendURLBase,
         endpoints,
@@ -73,7 +72,7 @@ const ListSelect = ({
         emailData,
         "NA",
         "Multiples-representatives-selected-lead"
-      ); */
+      );
     }
   };
   return (

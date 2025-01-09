@@ -26,6 +26,7 @@ function Home() {
     toGetRepresentativesPerParty: "/representatives-party/",
     toGetAllRepresentatives: "/all-representatives/",
     toGetRepresentativesByCp: "/find-mp-demo/",
+    toSaveLeads: "/leads/",
     toGetMainData: "/main/",
   });
   const [err,setErr]=useState(false)

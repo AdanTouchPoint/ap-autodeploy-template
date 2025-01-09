@@ -6,7 +6,7 @@ const fetchLeads = (
   clientId,
   dataUser,
   emailData,
-  emailMessage = "",
+  emailMessage = '',
   leadType
 ) => {
   fetchData(

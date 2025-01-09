@@ -5,12 +5,16 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/cjs/Col";
 import { animateScroll as scroll } from "react-scroll";
 import Alert from "react-bootstrap/Alert";
-
+import { fetchLeads } from "../assets/petitions/fetchLeads";  
 const ManualEmailForm = ({
   setActiveSection,
   dataUser,
   setDataUser,
   mainData,
+  backendURLBase,
+  endpoints,
+  clientId,
+  emailData
 }) => {
   const [valid, setValid] = useState(false);
   const [error, setError] = useState("");
@@ -56,6 +60,16 @@ const ManualEmailForm = ({
       setError("form")
       return
     }
+    fetchLeads(
+      true,
+      backendURLBase,
+      endpoints,
+      clientId,
+      dataUser,
+      emailData,
+      "NA",
+      "email-write-lead"
+    );
     setActiveSection("emailPreview")
   };
   const back = (e) => {

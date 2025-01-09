@@ -72,7 +72,7 @@ const EmailPreview = ({
         dataUser,
         emailData,
         messageEmail,
-        "message-multiple-representatives-lead"
+        "email-send-lead"
       );
       setActiveSection("typ");
     }
