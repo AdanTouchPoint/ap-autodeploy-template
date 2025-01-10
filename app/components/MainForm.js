@@ -25,7 +25,7 @@ const MainForm = ({
   colors,
   emails,
 }) => {
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('emailPreview');
   const [showLoadSpin, setShowLoadSpin] = useState(false);
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState(false);

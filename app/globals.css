@@ -74,17 +74,16 @@ font-size: 24px;
 
 /*---Email Preview---*/
 .email-sheet {
-  background-color: #fff; /* Fondo blanco */
-  border: 1px solid #ddd; /* Borde del contorno */
+  /*background-color: #fff; /* Fondo blanco */
+  border: 1px solid #574e4e; /* Borde del contorno */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para efecto flotante */
   border-radius: 8px; /* Bordes redondeados */
   padding: 20px; /* Espaciado interno */
   width: 100%; /* Ancho ajustado al contenedor */
-  max-width: 600px; /* Ancho máximo */
+  max-width: 1000px; /* Ancho máximo */
   margin-bottom: 20px; /* Separación del resto del contenido */
   font-family: Arial, sans-serif; /* Fuente limpia */
-  position: center;
-  
+ height: 500px;
 }
 
 /* Líneas de la hoja */

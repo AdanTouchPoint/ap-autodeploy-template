@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/cjs/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/cjs/Col";
@@ -16,6 +16,15 @@ const ManualEmailForm = ({
   clientId,
   emailData
 }) => {
+  useEffect(() => {
+    const text = mainData.emailform?.message?.text
+    const sub =  mainData.emailform?.subject?.text 
+    setDataUser({
+      ...dataUser,
+      message: text,
+      subject: sub,
+    });
+  }, []);
   const [valid, setValid] = useState(false);
   const [error, setError] = useState("");
   const errorHandler = (message) => {
